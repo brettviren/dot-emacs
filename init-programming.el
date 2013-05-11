@@ -1,0 +1,16 @@
+;; setup programming language modes
+
+;;;; setup c/c++ mode
+(setq c-default-style '((c-mode . "cc-mode")
+                        (c++-mode . "cc-mode")
+                        (java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "gnu")))
+;(setq c-offsets-alist '((substatement-open . 0)))
+(add-auto-mode 'c++-mode "\\.cc$\\|\\.C$\\|\\.cxx$\\|\\.cpp$\\|\\.h$\\|\\.hpp$")
+(add-auto-mode 'c-mode "\\.c$")
+
+;;;; setup php
+(add-auto-mode 'php-mode "\\.php[345]?\\'\\|\\.phtml\\.")
+
+(provide 'init-programming)
