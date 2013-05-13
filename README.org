@@ -1,0 +1,7 @@
+Emacs config
+
+Time to try a new start at my emacs config.  Taken heavily from 
+
+ - http://milkbox.net/note/single-file-master-emacs-configuration/
+ - https://github.com/purcell/emacs.d/blob/master/init.el
+
