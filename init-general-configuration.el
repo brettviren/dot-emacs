@@ -15,8 +15,6 @@
 (setq-default
  imenu-auto-rescan t
  indicate-empty-lines t
- ispell-extra-args (quote ("--sug-mode=ultra"))
- ispell-program-name "aspell"
  mouse-yank-at-point t
  redisplay-dont-pause t
  user-full-name "Brett Viren"

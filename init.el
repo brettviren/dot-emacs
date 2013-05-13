@@ -25,7 +25,10 @@
 ;; setup packages
 (require 'init-uniquify)
 (require 'init-git)
-
+(require 'init-sh)
+(require 'init-python)
+(require 'init-spelling)
+(require 'init-org)
 
 ;;;; theme
 ;; https://github.com/sellout/emacs-color-theme-solarized
