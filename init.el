@@ -29,10 +29,8 @@
 (require 'init-python)
 (require 'init-spelling)
 (require 'init-org)
-
-;;;; theme
-;; https://github.com/sellout/emacs-color-theme-solarized
-(load-theme 'solarized-dark t)
+(require 'init-email)
+(require 'init-theme)
 
 ;;;; Set and load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
