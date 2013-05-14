@@ -13,4 +13,8 @@
 ;;;; setup php
 (add-auto-mode 'php-mode "\\.php[345]?\\'\\|\\.phtml\\.")
 
+(require-package 'yaml-mode)
+(require-package 'change-inner)
+
+
 (provide 'init-programming)

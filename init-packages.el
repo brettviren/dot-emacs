@@ -25,20 +25,5 @@ re-downloaded in order to locate PACKAGE."
 (package-initialize)
 
 
-(defun bv-install-packages ()
-  "Install some packages"
-  (interactive)
-  (package-refresh-contents)
-  (mapc '(lambda (package)
-           (unless (package-installed-p package)
-             (package-install package)))
-        '(
-	  yaml-mode
-	  org
-	  color-theme-solarized	  
-	  change-inner
-	  )
-	))
-
 
 (provide 'init-packages)

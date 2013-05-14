@@ -1,4 +1,4 @@
-
+;; Set up theme
 
 (require-package 'color-theme-solarized)
 ;;;; theme
