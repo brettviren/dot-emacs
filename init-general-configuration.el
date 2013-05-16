@@ -19,6 +19,8 @@
  redisplay-dont-pause t
  user-full-name "Brett Viren"
  user-mail-address "brett.viren@gmail.com"
+ browse-url-browser-function 'browse-url-generic
+ browse-url-generic-program "chromium-browser"
 )
 
 
