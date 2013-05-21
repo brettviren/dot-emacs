@@ -10,6 +10,7 @@
 (setq inhibit-startup-screen t)
 
 (add-to-list 'load-path "~/git/dot-emacs")
+(add-to-list 'load-path "~/git/dot-emacs/elisp")
 (defconst *is-a-gui* (display-graphic-p))
 
 ;; early

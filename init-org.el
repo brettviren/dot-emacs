@@ -1,6 +1,8 @@
 ;; setup lovely org mode
 
 (require 'org)
+(require 'org-screenshot)
+
 (setq org-directory "~/git/org-directory")
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 ;(add-hook 'message-mode-hook 'turn-on-orgstruct)
