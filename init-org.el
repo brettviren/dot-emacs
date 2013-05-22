@@ -1,6 +1,8 @@
 ;; setup lovely org mode
 
 (require 'org)
+(require 'org-screenshot)
+
 (setq org-directory "~/git/org-directory")
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 ;(add-hook 'message-mode-hook 'turn-on-orgstruct)
@@ -10,6 +12,7 @@
 	  (lambda ()
 	    'turn-on-font-lock
 	    (visual-line-mode)
+	    (variable-pitch-mode t)
 	    ;(setq word-wrap 1)
 	    (setq truncate-lines nil)
 	    (flyspell-mode 1)))
@@ -28,6 +31,20 @@
 ;; I'm trusting
 (setq org-confirm-babel-evaluate nil)
 
+;; We turn on variable-pitch-mode in the mode hook, but don't want it
+;; turned on for code/verbatim blocks.  Do "M-x list-faces-display" to
+;; get a list of face names or "C-u C-x =" to see what is in affect at
+;; the point.
+;; 
+(set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-verbatim nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-block-background nil :inherit 'fixed-pitch)
+
+;; Pretty code blocks
+;; http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html
+(setq org-src-fontify-natively t)
 
 (setq 
  org-agenda-files (quote ("~/org/home/todo.org" "~/org/work/todo.org"))

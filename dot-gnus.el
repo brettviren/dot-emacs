@@ -15,7 +15,7 @@
 (require 'bbdb-gnus)
 
 (defun my-message-setup-hook ()
-  (bbdb-define-all-aliases)
+  (bbdb-mail-aliases)
   (local-set-key "\M-TAB" 'bbdb-complete-name)
   )
 (add-hook 'message-setup-hook 'my-message-setup-hook)
