@@ -82,8 +82,16 @@ URL: %^{url/phone}
    
    ("hn" "Home notes" entry
     (file+datetree "~/org/home/notes.org") "")
-   ("ht" "Home todo" entry
-    (file+headline "~/org/home/todo.org") "")
+
+   ("ht" "Home Todo" entry
+    (file+headline "~/org/todo.org" "To do")
+    "\n\n** TODO %^{do what} %^G
+SCHEDULED: <%<%Y-%m-%d %a>>
+ADDED: %U
+FROM: %a
+%?" 
+    :empty-lines 1)
+
    
    )))
 
