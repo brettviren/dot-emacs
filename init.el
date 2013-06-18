@@ -32,6 +32,7 @@
 (require 'init-org)
 (require 'init-email)
 (require 'init-theme)
+(require 'init-yasnippet)
 
 ;;;; Set and load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

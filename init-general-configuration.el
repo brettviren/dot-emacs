@@ -4,8 +4,8 @@
 (column-number-mode t)	   ; display column number
 (show-paren-mode t)	   ; visually match parens
 (winner-mode t)		   ; C-c <left> to go back to previous windows
-(global-subword-mode t)	   ; treat CamelCase as word boundaries
-(delete-selection-mode t)  ; typing at a selected region replaces it
+(global-subword-mode nil)  ; treat CamelCase as word boundaries, or don't
+;;(delete-selection-mode t)  ; typing at a selected region replaces it -- NO! evil
 (which-function-mode t)	   ; display what function cursor is in
 (prefer-coding-system 'utf-8)		; UTF everywhere
 (set-keyboard-coding-system 'utf-8)
