@@ -1,12 +1,28 @@
 ;; setup lovely org mode
 
 (require 'org)
-(require 'org-screenshot)
+;(require 'org-screenshot)
+;(require 'o-blog)
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (setq org-directory "~/git/org-directory")
 (setq org-default-notes-file (concat org-directory "/notes.org"))
+
+;(setq org-mobile-directory "~/Dropbox/MobileOrg")
+;(setq org-mobile-directory "~/mo")
+;(setq org-mobile-files '("~/git/org-directory/todo.org" "~/git/org-directory/notes.org"))
+;(setq org-mobile-inbox-for-pull "~/git/org-directory/from-mobile.org")
 ;(add-hook 'message-mode-hook 'turn-on-orgstruct)
 ;(add-hook 'message-mode-hook 'turn-on-orgstruct++)
+
+(defun bv-post () 
+  "Post this file"
+  (interactive)
+  (save-buffer)
+  (org-latex-export-to-pdf)
+  (org-html-export-to-html)
+)
 
 (add-hook 'org-mode-hook 
 	  (lambda ()
@@ -15,6 +31,7 @@
 	    (variable-pitch-mode t)
 	    ;(setq word-wrap 1)
 	    (setq truncate-lines nil)
+	    (local-set-key [f10] 'bv-post)
 	    (flyspell-mode 1)))
 
 
@@ -28,7 +45,7 @@
    (sqlite . t)
    ))
 
-;; I'm trusting
+;; I'm trusting, so far so goo$!%$$($#3!!@
 (setq org-confirm-babel-evaluate nil)
 
 ;; We turn on variable-pitch-mode in the mode hook, but don't want it
@@ -97,18 +114,20 @@ FROM: %a
 
 
 
-'(org-capture-templates (quote 
-(("t" "Todo" entry (file+headline "~/org/newgtd.org" "TACHES") "* TODO %^{Brief description} %^g
- %?   
-    Added: %U
-%i
-%a") ("n" "Notes" entry (file+datetree "~/org/journal.org") "* %^{topic} %T %^g
-%i%?
-%a") ("d" "Scheduled appointment" entry (file+headline "~/org/newgtd.org" "TACHES") "* TODO %^{Brief description} %^g
- %?   
-    SCHEDULED: %t
-%i
-%a"))))
+;; '(org-capture-templates (quote 
+;; (("t" "Todo" entry (file+headline "~/org/newgtd.org" "TACHES") "* TODO %^{Brief description} %^g
+;;  %?   
+;;     Added: %U
+;; %i
+;; %a") ("n" "Notes" entry (file+datetree "~/org/journal.org") "* %^{topic} %T %^g
+;; %i%?
+;; %a") ("d" "Scheduled appointment" entry (file+headline "~/org/newgtd.org" "TACHES") "* TODO %^{Brief description} %^g
+;;  %?   
+;;     SCHEDULED: %t
+;; %i
+;; %a"))))
+
+
 
 (provide 'init-org)
 
