@@ -47,7 +47,7 @@
 (setq org-src-fontify-natively t)
 
 (setq 
- org-agenda-files (quote ("~/org/home/todo.org" "~/org/work/todo.org"))
+ org-agenda-files (quote ("~/org/todo.org"))
  org-capture-templates 
  (quote 
   (

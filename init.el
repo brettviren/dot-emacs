@@ -27,6 +27,7 @@
 (require 'init-uniquify)
 (require 'init-git)
 (require 'init-sh)
+(require 'init-tex)
 (require 'init-python)
 (require 'init-spelling)
 (require 'init-org)
