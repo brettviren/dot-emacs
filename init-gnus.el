@@ -11,7 +11,7 @@
  ((string= system-name "hal.local")
   (message "Using HAL")
   (setq gnus-init-file "~/git/dot-emacs/dot-gnus-hal.el"))
- ((string= system-name "lycastus")
+ ((string= system-name "lycastus.phy.bnl.gov")
   (message "Using LYCASTUS")
   (setq gnus-init-file "~/git/dot-emacs/dot-gnus-lycastus.el"))
 )
