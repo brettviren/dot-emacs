@@ -63,6 +63,14 @@
 ;; http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html
 (setq org-src-fontify-natively t)
 
+(defun bv-daily-log-file ()
+  (find-file (concat "~/org/web/notes/" 
+		     (format-time-string "%Y-%m-%d") ".org"))
+  (goto-char (point-max))
+  (newline 2)
+)
+
+
 (setq 
  org-agenda-files (quote ("~/org/todo.org"))
  org-capture-templates 
@@ -77,6 +85,18 @@ FROM: %a
 %?" 
     :empty-lines 1)
    
+
+   ("n" "Note" entry
+    (function bv-daily-log-file)
+    "\* %U %^{title}\n  %a\n\n%?"
+    :empty-lines 1)
+
+   ("g" "General" entry
+    (file+headline "~/org/general.org" "General")
+    "\* %U %^{title}\n  %a\n\n%?"
+    :empty-lines 1)
+
+
    ("m" "Meeting" entry
     (file+headline "~/org/todo.org" "Meetings")
     "\n\n** TODO %^{description} %^G
@@ -86,29 +106,6 @@ URL: %^{url/phone}
 %?
 "
     :empty-lines 1)
-			  
-   
-   ("w" "Work related things")
-   
-   ("wn" "Work notes" entry
-    (file+datetree "~/org/work/notes.org") "")
-   ("wt" "Work todo" entry
-    (file+headline "~/org/work/todo.org") "")
-   
-   ("h" "Home related things")
-   
-   ("hn" "Home notes" entry
-    (file+datetree "~/org/home/notes.org") "")
-
-   ("ht" "Home Todo" entry
-    (file+headline "~/org/todo.org" "To do")
-    "\n\n** TODO %^{do what} %^G
-SCHEDULED: <%<%Y-%m-%d %a>>
-ADDED: %U
-FROM: %a
-%?" 
-    :empty-lines 1)
-
    
    )))
 
@@ -128,6 +125,85 @@ FROM: %a
 ;; %a"))))
 
 
+;;; Blerg
+(add-to-list 'load-path "~/git/org-mode/contrib/lisp/")
+(require 'ox-rss)
+(setq org-publish-project-alist
+      '(
+	("web-notes"
+	 :base-directory "~/org/web/notes/"
+	 :base-extension "org"
+	 :publishing-directory "~/git/web/notes/"
+	 :recursive t
+	 :publishing-function org-html-publish-to-html
+	 :headline-levels 4 
+	 :html-extension "html"
+         :html-preamble "They Call Me Brett"
+         :html-postamble "made with Emacs and org-mode"
+         :style "This is raw html for stylesheet <link>'s"
+         :author nil
+         :export-creator-info nil
+         :section-numbers nil
+         :with-toc nil
+	 :body-only nil
+         :timestamp t
+         :exclude-tags ("noexport" "todo")
+         :auto-preamble t
+         :auto-sitemap t
+         :makeindex t
+	 :html-head-extra
+         "<link rel=\"alternate\" type=\"application/rss+xml\"
+                href=\"http://mydomain.org/my-blog.xml\"
+                title=\"RSS feed for mydomain.org\">"
+	 )
+	("web-notes-org"
+	 :base-directory "~/org/web/notes/"
+	 :base-extension "org"
+	 :publishing-directory "~/git/web/notes/"
+	 :recursive t
+	 :publishing-function org-org-publish-to-org
+	 :htmlized-source t
+	 :headline-levels 4 
+	 :html-extension "html"
+	 :body-only t ;; Only export section between <body> </body>
+	 )
+
+	("web-notes-rss"
+	 :base-directory "~/org/web/notes"
+	 :base-extension "org"
+	 :publishing-directory "~/git/web/notes/rss/"
+	 :publishing-function (org-rss-publish-to-rss)
+	 :html-link-home "http://mydomain.org/"
+	 :html-link-use-abs-url t
+	 )
+
+
+	("web-topics"
+	 :base-directory "~/org/web/topics/"
+	 :base-extension "org"
+	 :publishing-directory "~/git/web/topics/"
+	 :recursive t
+	 :publishing-function org-html-publish-to-html
+	 :headline-levels 4 
+	 :html-extension "html"
+	 :body-only t ;; Only export section between <body> </body>
+	 )
+
+	("web-files"
+	 :base-directory "~/git/web/files/"
+	 :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+	 :publishing-directory "~/git/web/files/"
+	 :recursive t
+	 :publishing-function org-publish-attachment
+	 )
+
+	("web" :components (
+			    "web-notes" 
+			    ;"web-notes-org" 
+			    "web-topics" 
+			    "web-files"
+			    ))
+	))
 
 (provide 'init-org)
 
