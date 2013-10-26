@@ -3,6 +3,7 @@
 (add-auto-mode 'python-mode "SConstruct\\'")
 (add-auto-mode 'python-mode "SConsscript\\'")
 (add-auto-mode 'python-mode "\\.scons\\'")
+(add-auto-mode 'python-mode "wscript")	;; waf files
 
 (require-package 'pyflakes)
 (require-package 'flymake-python-pyflakes)

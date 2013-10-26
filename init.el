@@ -27,11 +27,13 @@
 (require 'init-uniquify)
 (require 'init-git)
 (require 'init-sh)
+(require 'init-tex)
 (require 'init-python)
 (require 'init-spelling)
 (require 'init-org)
 (require 'init-email)
 (require 'init-theme)
+(require 'init-yasnippet)
 
 ;;;; Set and load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

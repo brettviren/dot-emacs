@@ -35,6 +35,15 @@
          (visual-line-mode)
          ))
 
+;; Remove any of my addresses from To/Cc on reply
+;; http://www.gnu.org/software/emacs/manual/html_node/message/Wide-Reply.html
+(setq message-dont-reply-to-names
+      (regexp-opt 
+       '("bv@bnl.gov"
+	 "bviren@bnl.gov"
+	 "bv@fnal.gov"
+	 "brett.viren@gmail.com")))
+
 
 ; http://www.emacswiki.org/emacs/EasyPG#toc8
 (require 'epg-config)
