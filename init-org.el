@@ -63,13 +63,26 @@
 ;; http://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html
 (setq org-src-fontify-natively t)
 
+;; Custom external links
+;; http://orgmode.org/manual/Adding-hyperlink-types.html#Adding-hyperlink-types
+;; http://orgmode.org/manual/Link-abbreviations.html#Link-abbreviations
+(defun bv-link-resolve-github (tag)
+  (replace-regexp-in-string ":" "/blob/master/" tag))
+
+(setq org-link-abbrev-alist
+      '(
+	("ghsite" . "https://github.com/brettviren/%h")
+	("ghfile" . "https://github.com/brettviren/%(bv-link-resolve-github)")
+	))
+
+
+;; Capture templates
 (defun bv-daily-log-file ()
   (find-file (concat "~/org/web/notes/" 
 		     (format-time-string "%Y-%m-%d") ".org"))
   (goto-char (point-max))
   (newline 2)
 )
-
 
 (setq 
  org-agenda-files (quote ("~/org/todo.org"))
