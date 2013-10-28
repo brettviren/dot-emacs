@@ -42,14 +42,16 @@
        '("bv@bnl.gov"
 	 "bviren@bnl.gov"
 	 "bv@fnal.gov"
-	 "brett.viren@gmail.com")))
+	 "brett.viren@gmail.com"
+	 )))
 
 
 ; http://www.emacswiki.org/emacs/EasyPG#toc8
 (require 'epg-config)
 (setq mml2015-use 'epg
       mml2015-verbose t
-      epg-user-id "bv"
+;      epg-user-id "bv"
+      epg-user-id "9D1D282C"
       mml2015-cache-passphrase t
       mml2015-passphrase-cache-expiry '36000
       mml2015-encrypt-to-self t
@@ -111,11 +113,11 @@
          ;(display . all)
          ;(gcc-self . t)
          )
-        ("gmail:.*"
-         (comment . "gmail")
-         (posting-style
-          (address "brett.viren@gmail.com"))
-         )
+;        ("gmail:.*"
+;         (comment . "gmail")
+;         (posting-style
+;          (address "brett.viren@gmail.com"))
+;         )
         ))
 
 ;; Handle multiple SMTP accounts using a mixture of these:
