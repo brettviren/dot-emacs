@@ -73,15 +73,19 @@
       '(
 	("ghsite" . "https://github.com/brettviren/%h")
 	("ghfile" . "https://github.com/brettviren/%(bv-link-resolve-github)")
+	("dbtrac" . "http://dayabay.ihep.ac.cn/tracs/dybsvn/ticket/%h")
 	))
 
 
 ;; Capture templates
 (defun bv-daily-log-file ()
-  (find-file (concat "~/org/web/notes/" 
-		     (format-time-string "%Y-%m-%d") ".org"))
-  (goto-char (point-max))
-  (newline 2)
+;  (save-window-excursion
+;  (save-selected-window
+    (find-file (concat "~/org/web/notes/" 
+		       (format-time-string "%Y-%m-%d") ".org"))
+    (goto-char (point-max))
+    (newline 2)
+;)
 )
 
 (setq 
