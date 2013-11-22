@@ -79,13 +79,48 @@
 
 ;; Capture templates
 (defun bv-daily-log-file ()
-;  (save-window-excursion
-;  (save-selected-window
-    (find-file (concat "~/org/web/notes/" 
-		       (format-time-string "%Y-%m-%d") ".org"))
+  (let ((note-file (concat "~/org/web/notes/" 
+			   (format-time-string "%Y/%m/%d/") "notes.org")))
+    (mkdir (file-name-directory note-file) t)
+    (find-file note-file)
     (goto-char (point-max))
-    (newline 2)
-;)
+    (newline 2))
+)
+
+(defun bv-existing-slugs (base-dir)
+  (delq nil
+	(mapcar (lambda (s)
+		  (and (not (string= (substring s 0 1) "."))
+		       (file-directory-p (concat base-dir s))
+		       s))
+		(directory-files base-dir))))
+;(bv-existing-slugs "~/org-pub/topics/")
+
+(defun bv-blog-topic-file () 
+  (let* ((bv-topic-base-dir "~/org-pub/topics/")
+	 (existing-slugs (bv-existing-slugs bv-topic-base-dir))
+	 (slug
+	  (read-from-minibuffer 
+	   "Topic slug: "
+	   (car existing-slugs) nil nil 'existing-slugs))
+	 (topic-dir (concat 
+		     bv-topic-base-dir
+		     (replace-regexp-in-string 
+		      " " "-" slug))))
+    (let ((blog-file (concat topic-dir "/index.org")))
+      (unless (file-exists-p blog-file)
+	(mkdir topic-dir t))
+      (find-file blog-file)
+      (goto-char (point-max)))))
+;(bv-blog-topic-file)
+
+(defun bv-blog-entry-file ()
+  (let ((note-file (concat "~/org-pub/blog/" 
+			   (format-time-string "%Y-%m-%d.org"))))
+    (mkdir (file-name-directory note-file) t)
+    (find-file note-file)
+    (goto-char (point-max))
+    (newline 2))
 )
 
 (setq 
@@ -107,6 +142,21 @@ FROM: %a
     (function bv-daily-log-file)
     "\* %U %^{title}\n  %a\n\n%?"
     :empty-lines 1)
+
+   ("B" "Blog start topic" plain
+    (function bv-blog-topic-file)
+    (file "~/org-pub/templates/topic-start.template")
+    )
+
+   ("b" "Blog update topic" entry
+    (function bv-blog-topic-file)
+    (file "~/org-pub/templates/topic-update.template")
+    )
+
+   ("l" "Blog log update" entry
+    (file+datetree "~/org-pub/log/latest.org")
+    (file "~/org-pub/templates/blog-entry.template")
+    )
 
    ("g" "General" entry
     (file+headline "~/org/general.org" "General")
