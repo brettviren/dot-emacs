@@ -29,18 +29,17 @@
 (require 'init-sh)
 (require 'init-tex)
 (require 'init-python)
+
 (require 'init-spelling)
 (require 'init-org)
 (require 'init-email)
 (require 'init-theme)
 ;(require 'init-yasnippet)
+;(require 'init-ag)
 
 ;;;; Set and load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
 
-;;;; Start emacs server if it isn't already running
-(require 'server)
-(unless (server-running-p)
-  (server-start))
+(require 'init-server)

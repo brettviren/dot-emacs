@@ -124,7 +124,8 @@
 )
 
 (setq 
- org-agenda-files (quote ("~/org/todo.org"))
+ ; use C-c [
+ ;org-agenda-files (list "~/org/todo.org")
  org-capture-templates 
  (quote 
   (
@@ -194,7 +195,7 @@ URL: %^{url/phone}
 
 ;;; Blerg
 (add-to-list 'load-path "~/git/org-mode/contrib/lisp/")
-(require 'ox-rss)
+;(require 'ox-rss)
 (setq org-publish-project-alist
       '(
 	("web-notes"

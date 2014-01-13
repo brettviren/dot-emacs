@@ -13,4 +13,6 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+;(global-set-key (kbd "C-x f") 'find-file-in-repository)
+
 (provide 'init-global-key-bindings)
