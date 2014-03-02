@@ -78,14 +78,17 @@
 
 
 ;; Capture templates
-(defun bv-daily-log-file ()
-  (let ((note-file (concat "~/org/web/notes/" 
-			   (format-time-string "%Y/%m/%d/") "notes.org")))
+(defun bv-daily-file (base file)
+  (let ((note-file (concat base
+			   (format-time-string "%Y/%m/%d/") file)))
     (mkdir (file-name-directory note-file) t)
     (find-file note-file)
     (goto-char (point-max))
     (newline 2))
 )
+
+(defun bv-daily-note-file () (bv-daily-file "~/org/web/notes/" "notes.org"))
+(defun bv-daily-blog-file () (bv-daily-file "~/org-pub/log/" "index.org"))
 
 (defun bv-existing-slugs (base-dir)
   (delq nil
@@ -140,7 +143,7 @@ FROM: %a
    
 
    ("n" "Note" entry
-    (function bv-daily-log-file)
+    (function bv-daily-note-file)
     "\* %U %^{title}\n  %a\n\n%?"
     :empty-lines 1)
 
@@ -154,8 +157,8 @@ FROM: %a
     (file "~/org-pub/templates/topic-update.template")
     )
 
-   ("l" "Blog log update" entry
-    (file+datetree "~/org-pub/log/latest.org")
+   ("l" "Blog log update" plain
+    (function bv-daily-blog-file)
     (file "~/org-pub/templates/blog-entry.template")
     )
 

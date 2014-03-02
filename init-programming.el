@@ -16,5 +16,7 @@
 (require-package 'yaml-mode)
 (require-package 'change-inner)
 
+;; Some random extensions
+(add-auto-mode 'shell-script-mode "\\.gnuplot\\|\\.gp")
 
 (provide 'init-programming)
