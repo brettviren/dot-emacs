@@ -162,6 +162,21 @@ FROM: %a
     (file "~/org-pub/templates/blog-entry.template")
     )
 
+   ("x" "X11 clipboard" entry
+    (file+datetree "~/org/clippings.org")
+    "\n* %^{blurb}
+#+BEGIN_EXAMPLE
+%x
+#+END_EXAMPLE
+"
+    :empty-lines 1)
+
+   ("L" "Links from X11 clipboard" entry
+    (file+datetree "~/org/links.org")
+    "\n*^L"
+    :empty-lines 1)
+
+
    ("g" "General" entry
     (file+headline "~/org/general.org" "General")
     "\* %U %^{title}\n  %a\n\n%?"
