@@ -3,6 +3,8 @@
 ;; - http://milkbox.net/note/single-file-master-emacs-configuration/
 ;; - https://github.com/purcell/emacs.d/blob/master/init.el
 
+
+
 ;; Mellow the display
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -32,6 +34,7 @@
 
 (require 'init-spelling)
 (require 'init-org)
+(require 'init-org-pub)
 (require 'init-email)
 (require 'init-theme)
 ;(require 'init-yasnippet)
