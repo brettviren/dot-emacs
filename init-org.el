@@ -3,6 +3,7 @@
 (add-to-list 'load-path (expand-file-name "~/git/dot-emacs/elisp/org-mode/lisp"))
 
 (require 'org)
+(require 'org-protocol)
 ;(require 'org-screenshot)
 ;(require 'o-blog)
 (require 'org-bullets)
@@ -132,6 +133,8 @@
 ;; nslater writes in #org-mode
 ;;   (file (format-time-string "~/Dropbox/Blog/%Y/%m/%d.org"))
 
+
+;(setq org-protocol-default-template-key "x")
 (setq 
  ; use C-c [
  ;org-agenda-files (list "~/org/todo.org")
@@ -216,6 +219,19 @@ URL: %^{url/phone}
 ;; %i
 ;; %a"))))
 
+
+(defun make-capture-frame ()
+  "Create a new frame and run org-capture."
+  (interactive)
+  (make-frame '((name . "capture")))
+  (select-frame-by-name "capture")
+  (delete-other-windows)
+  (org-capture)
+  )
+(defadvice org-capture-finalize (after delete-capture-frame activate)
+  "Advise capture-finalize to close the frame if it is the capture frame"
+  (if (equal "capture" (frame-parameter nil 'name))
+      (delete-frame)))
 
 (provide 'init-org)
 
