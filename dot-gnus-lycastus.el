@@ -124,9 +124,12 @@
 ;; http://www.emacswiki.org/cgi-bin/wiki/MultipleSMTPAccounts
 ;; http://www.emacswiki.org/cgi-bin/wiki/GnusMSMTP
 ;; http://www.emacswiki.org/cgi-bin/wiki/GnusGmail
+
+
 (defun set-smtp-local ()
   "Send mail to localhost server"
-  (setq smtpmail-smtp-server "localhost"))
+  (setq smtpmail-smtp-server "localhost"
+      smtpmail-smtp-port 2525))
 
 (set-smtp-local)                        ;default
 
@@ -248,14 +251,14 @@
 ;               (nnimap-server-port 993)
 ;               (nnimap-stream ssl)
 ;; ssh tunneled to imap
-;               (nnimap-address "localhost")
-;               (nnimap-server-port 143)
-;               (nnimap-stream network)
-;               (nnimap-authenticator login)
+               (nnimap-address "localhost")
+               (nnimap-server-port 1143)
+               (nnimap-stream network)
+               (nnimap-authenticator login)
 ;; directly call imap server.  
 ;; Need to set imap-shell-program
 ;; see dot/emacs/elisp/all/email.el
-                (nnimap-stream shell)
+;                (nnimap-stream shell)
                 ;(nnir-search-engine imap)
                 )
 

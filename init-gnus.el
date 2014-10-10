@@ -8,10 +8,13 @@
  gnus-cache-directory "~/gnus/cache/"
 )
 (cond
- ((string= system-name "hal.local")
+ ((or 
+   (string= system-name "hal.local")
+   (string= system-name "hal"))
   (message "Using HAL")
   (setq gnus-init-file "~/git/dot-emacs/dot-gnus-hal.el"
-	user-mail-address "brett.viren@gmail.com"))
+	user-mail-address "bv@bnl.gov"))
+
  ((string= system-name "lycastus.phy.bnl.gov")
   (message "Using LYCASTUS")
   (setq gnus-init-file "~/git/dot-emacs/dot-gnus-lycastus.el"
