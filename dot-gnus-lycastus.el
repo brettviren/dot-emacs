@@ -124,9 +124,12 @@
 ;; http://www.emacswiki.org/cgi-bin/wiki/MultipleSMTPAccounts
 ;; http://www.emacswiki.org/cgi-bin/wiki/GnusMSMTP
 ;; http://www.emacswiki.org/cgi-bin/wiki/GnusGmail
+
+
 (defun set-smtp-local ()
   "Send mail to localhost server"
-  (setq smtpmail-smtp-server "localhost"))
+  (setq smtpmail-smtp-server "localhost"
+      smtpmail-smtp-port 2525))
 
 (set-smtp-local)                        ;default
 

@@ -1,6 +1,9 @@
 ;; setup lovely org mode
 
+(add-to-list 'load-path (expand-file-name "~/git/dot-emacs/elisp/org-mode/lisp"))
+
 (require 'org)
+(require 'org-protocol)
 ;(require 'org-screenshot)
 ;(require 'o-blog)
 (require 'org-bullets)
@@ -89,14 +92,17 @@
 
 
 ;; Capture templates
-(defun bv-daily-log-file ()
-  (let ((note-file (concat "~/org/web/notes/" 
-			   (format-time-string "%Y/%m/%d/") "notes.org")))
+(defun bv-daily-file (base file)
+  (let ((note-file (concat base
+			   (format-time-string "%Y/%m/%d/") file)))
     (mkdir (file-name-directory note-file) t)
     (find-file note-file)
     (goto-char (point-max))
     (newline 2))
 )
+
+(defun bv-daily-note-file () (bv-daily-file "~/org/web/notes/" "notes.org"))
+(defun bv-daily-blog-file () (bv-daily-file "~/org-pub/log/" "index.org"))
 
 (defun bv-existing-slugs (base-dir)
   (delq nil
@@ -110,10 +116,7 @@
 (defun bv-blog-topic-file () 
   (let* ((bv-topic-base-dir "~/org-pub/topics/")
 	 (existing-slugs (bv-existing-slugs bv-topic-base-dir))
-	 (slug
-	  (read-from-minibuffer 
-	   "Topic slug: "
-	   (car existing-slugs) nil nil 'existing-slugs))
+	 (slug (completing-read "Topic slug: " existing-slugs))
 	 (topic-dir (concat 
 		     bv-topic-base-dir
 		     (replace-regexp-in-string 
@@ -134,9 +137,16 @@
     (newline 2))
 )
 
+(require 'find-lisp)
+
+;(setq org-protocol-default-template-key "x")
+(setq  
+ org-agenda-files (list "~/org")	; also can use C-c [
+ org-agenda-text-search-extra-files 
+ (find-lisp-find-files "~/org-pub/topics/" "\\.org$")
+)
+
 (setq 
- ; use C-c [
- ;org-agenda-files (list "~/org/todo.org")
  org-capture-templates 
  (quote 
   (
@@ -151,7 +161,7 @@ FROM: %a
    
 
    ("n" "Note" entry
-    (function bv-daily-log-file)
+    (function bv-daily-note-file)
     "\* %U %^{title}\n  %a\n\n%?"
     :empty-lines 1)
 
@@ -165,10 +175,25 @@ FROM: %a
     (file "~/org-pub/templates/topic-update.template")
     )
 
-   ("l" "Blog log update" entry
-    (file+datetree "~/org-pub/log/latest.org")
+   ("l" "Blog log update" plain
+    (function bv-daily-blog-file)
     (file "~/org-pub/templates/blog-entry.template")
     )
+
+   ("x" "X11 clipboard" entry
+    (file+datetree "~/org/clippings.org")
+    "\n* %^{blurb}
+#+BEGIN_EXAMPLE
+%x
+#+END_EXAMPLE
+"
+    :empty-lines 1)
+
+   ("L" "Links from X11 clipboard" entry
+    (file+datetree "~/org/links.org")
+    "\n*^L"
+    :empty-lines 1)
+
 
    ("g" "General" entry
     (file+headline "~/org/general.org" "General")
@@ -204,85 +229,18 @@ URL: %^{url/phone}
 ;; %a"))))
 
 
-;;; Blerg
-(add-to-list 'load-path "~/git/org-mode/contrib/lisp/")
-;(require 'ox-rss)
-(setq org-publish-project-alist
-      '(
-	("web-notes"
-	 :base-directory "~/org/web/notes/"
-	 :base-extension "org"
-	 :publishing-directory "~/git/web/notes/"
-	 :recursive t
-	 :publishing-function org-html-publish-to-html
-	 :headline-levels 4 
-	 :html-extension "html"
-         :html-preamble "They Call Me Brett"
-         :html-postamble "made with Emacs and org-mode"
-         :style "This is raw html for stylesheet <link>'s"
-         :author nil
-         :export-creator-info nil
-         :section-numbers nil
-         :with-toc nil
-	 :body-only nil
-         :timestamp t
-         :exclude-tags ("noexport" "todo")
-         :auto-preamble t
-         :auto-sitemap t
-         :makeindex t
-	 :html-head-extra
-         "<link rel=\"alternate\" type=\"application/rss+xml\"
-                href=\"http://mydomain.org/my-blog.xml\"
-                title=\"RSS feed for mydomain.org\">"
-	 )
-	("web-notes-org"
-	 :base-directory "~/org/web/notes/"
-	 :base-extension "org"
-	 :publishing-directory "~/git/web/notes/"
-	 :recursive t
-	 :publishing-function org-org-publish-to-org
-	 :htmlized-source t
-	 :headline-levels 4 
-	 :html-extension "html"
-	 :body-only t ;; Only export section between <body> </body>
-	 )
-
-	("web-notes-rss"
-	 :base-directory "~/org/web/notes"
-	 :base-extension "org"
-	 :publishing-directory "~/git/web/notes/rss/"
-	 :publishing-function (org-rss-publish-to-rss)
-	 :html-link-home "http://mydomain.org/"
-	 :html-link-use-abs-url t
-	 )
-
-
-	("web-topics"
-	 :base-directory "~/org/web/topics/"
-	 :base-extension "org"
-	 :publishing-directory "~/git/web/topics/"
-	 :recursive t
-	 :publishing-function org-html-publish-to-html
-	 :headline-levels 4 
-	 :html-extension "html"
-	 :body-only t ;; Only export section between <body> </body>
-	 )
-
-	("web-files"
-	 :base-directory "~/git/web/files/"
-	 :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-	 :publishing-directory "~/git/web/files/"
-	 :recursive t
-	 :publishing-function org-publish-attachment
-	 )
-
-	("web" :components (
-			    "web-notes" 
-			    ;"web-notes-org" 
-			    "web-topics" 
-			    "web-files"
-			    ))
-	))
+(defun make-capture-frame ()
+  "Create a new frame and run org-capture."
+  (interactive)
+  (make-frame '((name . "capture")))
+  (select-frame-by-name "capture")
+  (delete-other-windows)
+  (org-capture)
+  )
+(defadvice org-capture-finalize (after delete-capture-frame activate)
+  "Advise capture-finalize to close the frame if it is the capture frame"
+  (if (equal "capture" (frame-parameter nil 'name))
+      (delete-frame)))
 
 (provide 'init-org)
 

@@ -10,6 +10,8 @@
 (cond
  ((string= system-name "hal.local")
   (setq gnus-init-file "~/git/dot-emacs/dot-gnus-hal.el"))
+ ((string= system-name "hal")
+  (setq gnus-init-file "~/git/dot-emacs/dot-gnus-hal.el"))
  ((string= system-name "lycastus")
   (setq gnus-init-file "~/git/dot-emacs/dot-gnus-lycastus.el"))
 )
