@@ -1,6 +1,6 @@
 ;; setup lovely org mode
 
-(add-to-list 'load-path (expand-file-name "~/git/dot-emacs/elisp/org-mode/lisp"))
+(add-to-list 'load-path (expand-file-name "~/dot/emacs/elisp/org-mode/lisp"))
 
 (require 'org)
 (require 'org-protocol)
