@@ -11,13 +11,15 @@
  ;gnus-summary-line-format "%U%R%z%I%(%[%4L: %-23,23f%]%) %[%&user-date;%] %s\n"
  gnus-summary-line-format "%U%R%z%I%(%[%4L: %-23,23f%]%) %s\n"
 )
+
+;; set GNUS init file based on hostname
 (cond
  ((string= system-name "lycastus.phy.bnl.gov")
   (message "Using BNL")
-  (setq gnus-init-file "~/git/dot-emacs/dot-gnus-lycastus.el"
+  (setq gnus-init-file "~/dot/emacs/dot-gnus-lycastus.el"
 	user-mail-address "bv@bnl.gov"))
  (t (message "Using not-BNL")
-    (setq gnus-init-file "~/git/dot-emacs/dot-gnus-hal.el"
+    (setq gnus-init-file "~/dot/emacs/dot-gnus-hal.el"
 	  user-mail-address "bv@bnl.gov"))
 )
 ;(setq gnus-init-file "~/dot/emacs/dot-gnus.el")
