@@ -8,6 +8,13 @@
 ;(require 'o-blog)
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;(add-hook 'org-babel-after-execute-hook
+;	  (lambda () (progn (org-display-inline-images nil t)
+;			    (org-redisplay-inline-images))))
+
+(add-hook 'org-babel-after-execute-hook
+	  (lambda () (org-redisplay-inline-images)))
+
 
 (setq org-directory "~/git/org-directory")
 (setq org-default-notes-file (concat org-directory "/notes.org"))
@@ -69,13 +76,17 @@
 ;; Custom external links
 ;; http://orgmode.org/manual/Adding-hyperlink-types.html#Adding-hyperlink-types
 ;; http://orgmode.org/manual/Link-abbreviations.html#Link-abbreviations
-(defun bv-link-resolve-github (tag)
+(defun bv-link-resolve-github-file (tag)
   (replace-regexp-in-string ":" "/blob/master/" tag))
+(defun bv-link-resolve-github-issue (tag)
+  (replace-regexp-in-string ":" "/issues/" tag))
+; https://github.com/brettviren/worch/issues/45
 
 (setq org-link-abbrev-alist
       '(
 	("ghsite" . "https://github.com/brettviren/%h")
-	("ghfile" . "https://github.com/brettviren/%(bv-link-resolve-github)")
+	("ghfile" . "https://github.com/brettviren/%(bv-link-resolve-github-file)")
+	("ghissue" . "https://github.com/brettviren/%(bv-link-resolve-github-issue)")
 	("dbtrac" . "http://dayabay.ihep.ac.cn/tracs/dybsvn/ticket/%h")
 	))
 

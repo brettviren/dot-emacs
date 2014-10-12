@@ -106,12 +106,12 @@
 (setq gnus-parameters
       '(
         ("^nnimap.*"
-         ;(gcc-self . t)
+         (gcc-self . t)
          )
         ("bnl:.*"
          (comment . "bnl")
          ;(display . all)
-         ;(gcc-self . t)
+         (gcc-self . t)
          )
 ;        ("gmail:.*"
 ;         (comment . "gmail")
@@ -252,7 +252,7 @@
 ;               (nnimap-stream ssl)
 ;; ssh tunneled to imap
                (nnimap-address "localhost")
-               (nnimap-server-port 1143)
+               (nnimap-server-port 143)
                (nnimap-stream network)
                (nnimap-authenticator login)
 ;; directly call imap server.  
@@ -278,10 +278,18 @@
         ;;      (remove-prefix "INBOX.")
         ;;      (nnimap-stream ssl))
 
-        (nnfolder "old-outgoing"
-                  (nnfolder-directory "/home/bviren/Mail.pre-imap/archive")
-                  (nnfolder-active-file "/home/bviren/Mail.pre-imap/archive/active")
-                  (nnfolder-get-new-mail nil)
-                  )
+;        (nnfolder "old-outgoing"
+;                  (nnfolder-directory "/home/bviren/Mail.pre-imap/archive")
+;                  (nnfolder-active-file "/home/bviren/Mail.pre-imap/archive/active")
+;                  (nnfolder-get-new-mail nil)
+;                  )
         )
       nnimap-split-inbox '("INBOX"))
+
+;; Archiving outgoing messages
+(setq 
+ gnus-message-archive-group "nnimap+bnl:outbox.%Y"
+ gnus-gcc-mark-as-read t
+ ;gnus-gcc-self-resent-messages t
+)
+

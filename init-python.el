@@ -4,6 +4,8 @@
 (add-auto-mode 'python-mode "SConsscript\\'")
 (add-auto-mode 'python-mode "\\.scons\\'")
 (add-auto-mode 'python-mode "wscript")	;; waf files
+(add-auto-mode 'conf-mode "\\.emt\\'")  ;;https://github.com/brettviren/emt
+
 
 (require-package 'pyflakes)
 (require-package 'flymake-python-pyflakes)
