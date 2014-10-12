@@ -9,8 +9,8 @@
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (setq inhibit-startup-screen t)
 
-(add-to-list 'load-path "~/git/dot-emacs")
-(add-to-list 'load-path "~/git/dot-emacs/elisp")
+(add-to-list 'load-path "~/dot/emacs")
+(add-to-list 'load-path "~/dot/emacs/elisp")
 (defconst *is-a-gui* (display-graphic-p))
 
 ;; early
@@ -32,6 +32,7 @@
 
 (require 'init-spelling)
 (require 'init-org)
+(require 'init-evernote)
 (require 'init-email)
 (require 'init-theme)
 ;(require 'init-yasnippet)

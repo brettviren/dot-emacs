@@ -10,6 +10,6 @@
 
 (require 'init-bbdb)
 (require 'init-gnus)
-(require 'init-notmuch)
+;(require 'init-notmuch)
 
 (provide 'init-email)
