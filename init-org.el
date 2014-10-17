@@ -16,8 +16,17 @@
 	  (lambda () (org-redisplay-inline-images)))
 
 
-(setq org-directory "~/git/org-directory")
+(setq org-directory "~/org")
 (setq org-default-notes-file (concat org-directory "/notes.org"))
+
+;; http://lists.gnu.org/archive/html/emacs-orgmode/2013-03/msg00301.html
+(require 'ox-beamer)
+(add-to-list 'org-latex-classes
+	     '("beamer"
+	       "\\documentclass\[presentation\]\{beamer\}"
+	       ("\\section\{%s\}" . "\\section*\{%s\}")
+	       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+	       ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
 
 ;(setq org-mobile-directory "~/Dropbox/MobileOrg")
 ;(setq org-mobile-directory "~/mo")
@@ -143,7 +152,9 @@
 (setq  
  org-agenda-files (list "~/org")	; also can use C-c [
  org-agenda-text-search-extra-files 
- (find-lisp-find-files "~/org-pub/topics/" "\\.org$")
+ (append
+  (find-lisp-find-files "~/org-pub/topics/" "\\.org$")
+  (find-lisp-find-files "~/org/web/notes/" "\\.org$"))
 )
 
 (setq 
