@@ -105,20 +105,30 @@
 (setq gnus-group-line-format "%M%S%p%P%5y:%B%(%G%)%l %O\n")
 (setq gnus-parameters
       '(
-        ("^nnimap.*"
+        ("^bnl:.*"
          (gcc-self . t)
-         )
-        ("bnl:.*"
-         (comment . "bnl")
-         ;(display . all)
-         (gcc-self . t)
-         )
-;        ("gmail:.*"
-;         (comment . "gmail")
-;         (posting-style
-;          (address "brett.viren@gmail.com"))
-;         )
+	 (comment . "bnl")
+	 (display . all)
+	 (posting-style
+	  (name "Brett Viren")
+	  (address "bv@bnl.gov")))
+	("^gmail:.*"
+	 (comment . "gmail")
+	 (display . all)
+	 (posting-style
+	  (name "Brett Viren")
+	  (address "brett.viren@gmail.com")))
         ))
+
+;; http://www.cataclysmicmutation.com/2010/11/multiple-gmail-accounts-in-gnus/
+(setq message-send-mail-function 'message-send-mail-with-sendmail)
+(setq sendmail-program "/usr/bin/msmtp")
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+;;; dear, god, WHY!!!!????
+;(setq gnus-permanently-visible-groups ".*")
+
+
+      
 
 ;; Handle multiple SMTP accounts using a mixture of these:
 ;; http://www.emacswiki.org/cgi-bin/wiki/MultipleSMTPAccounts
@@ -214,6 +224,10 @@
          (name "Brett Viren")
          (address "bv@bnl.gov"))
 
+        (header "to" "brett.viren@gmail.com"
+		(address "brett.viren@gmail.com"))
+
+
         ("lists.fnal.linux"
          (address "bviren@minos.phy.bnl.gov"))
 
@@ -274,11 +288,10 @@
         ;;      ;(nnimap-stream starttls)
         ;;      )
 
-        ;; (nnimap "gmail"
-        ;;      (nnimap-address "imap.gmail.com")
-        ;;      (nnimap-server-port 993)
-        ;;      (remove-prefix "INBOX.")
-        ;;      (nnimap-stream ssl))
+	(nnimap "gmail"
+		(nnimap-address "imap.gmail.com")
+		(nnimap-server-port 993)
+		(nnimap-stream ssl))
 
 ;        (nnfolder "old-outgoing"
 ;                  (nnfolder-directory "/home/bviren/Mail.pre-imap/archive")
