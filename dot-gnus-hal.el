@@ -17,10 +17,10 @@
 		(nnimap-stream network)
 		(nnimap-authenticator login))
 	;;; lose too many gmail'ish feature, use web....
-	;; (nnimap "gmail"
-	;; 	(nnimap-address "imap.gmail.com")
-	;; 	(nnimap-server-port 993)
-	;; 	(nnimap-stream ssl))
+	(nnimap "gmail"
+		(nnimap-address "imap.gmail.com")
+		(nnimap-server-port 993)
+		(nnimap-stream ssl))
 	))
 
 (setq message-send-mail-function 'smtpmail-send-it
