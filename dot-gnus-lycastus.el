@@ -100,29 +100,54 @@
                                             mm-automatic-display))))
 ;;; end ppg
 
+;; http://www.emacswiki.org/emacs/GnusMSMTP
+(defun bv-feed-msmtp ()
+  (if (message-mail-p)
+      (save-excursion
+	(let* ((from
+		(save-restriction
+		  (message-narrow-to-headers)
+		  (message-fetch-field "from")))
+	       (account
+		(cond
+		 ((string-match "bv@bnl.gov" from) "bnl")
+		 ((string-match "brett.viren@gmail.com" from) "gmail"))))
+	  (setq message-sendmail-extra-arguments (list '"-a" account))))))
+(setq message-sendmail-envelope-from 'header)
+(add-hook 'message-send-mail-hook 'bv-feed-msmtp)
 
 
 (setq gnus-group-line-format "%M%S%p%P%5y:%B%(%G%)%l %O\n")
 (setq gnus-parameters
       '(
-        ("^bnl:.*"
+        ("bnl:.*"
          (gcc-self . t)
 	 (comment . "bnl")
-	 (display . all)
+;; you set this again and I'll cut off your hand!
+;	 (display . all)
 	 (posting-style
 	  (name "Brett Viren")
-	  (address "bv@bnl.gov")))
-	("^gmail:.*"
+	  (address "bv@bnl.gov")
+;	  (eval (setq message-sendmail-extra-arguments '("-a" "bnl")))
+	  (user-mail-address "bv@bnl.gov")
+	  ))
+	("gmail:.*"
 	 (comment . "gmail")
-	 (display . all)
+;; history repeats itself due to bad memory: http://lists.gnu.org/archive/html/info-gnus-english/2010-12/msg00539.html
+;	 (display . all)
 	 (posting-style
 	  (name "Brett Viren")
-	  (address "brett.viren@gmail.com")))
+	  (address "brett.viren@gmail.com")
+;	  (eval (setq message-sendmail-extra-arguments '("-a" "gmail")))
+	  (user-mail-address "brett.viren@gmail.com")
+	  ))
         ))
 
 ;; http://www.cataclysmicmutation.com/2010/11/multiple-gmail-accounts-in-gnus/
 (setq message-send-mail-function 'message-send-mail-with-sendmail)
 (setq sendmail-program "/usr/bin/msmtp")
+(setq message-sendmail-f-is-evil 't)
+(setq message-sendmail-extra-arguments '("--read-envelope-from"))
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 ;;; dear, god, WHY!!!!????
 ;(setq gnus-permanently-visible-groups ".*")
