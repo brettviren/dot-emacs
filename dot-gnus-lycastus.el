@@ -197,8 +197,10 @@
 
 
 ;; Archiving sent mail
-(setq gnus-message-archive-group
+(setq gnus-gcc-mark-as-read t
+      gnus-message-archive-group
       '((concat "mail.outbox." (format-time-string "%Y-%m"))))
+
 
 ;; Handle duplicates
 (setq nnmail-treat-duplicates 'delete)
@@ -285,11 +287,4 @@
 ;                  )
         )
       nnimap-split-inbox '("INBOX"))
-
-;; Archiving outgoing messages
-(setq 
- gnus-message-archive-group "nnimap+bnl:outbox.%Y"
- gnus-gcc-mark-as-read t
- ;gnus-gcc-self-resent-messages t
-)
 
