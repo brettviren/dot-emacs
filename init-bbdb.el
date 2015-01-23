@@ -3,12 +3,17 @@
 (require-package 'bbdb)
 (bbdb-initialize)
 
+;; http://blog.ltsampros.eu/2011/01/17/gnus-eudc-ldap-bbdb
+(setq
+ bbdb-use-pop-up nil
+ bbdb-notice-auto-save-file t
+ bbdb-pop-up-target-lines 10
+ bbdb-send-mail-style 'message)
+
 (setq
  bbdb-north-american-phone-numbers-p nil ;; allow other phone numbers
  bbdb-offer-save 1                       ;; save w/out asking
- ;bbdb-use-pop-up t                      ;; allow popups for addresses
  bbdb-electric-p t                       ;; be disposable with SPC
- ;bbdb-popup-target-lines  1             ;; very small
  bbdb-dwim-net-address-allow-redundancy t ;; always use full name
  bbdb-quiet-about-name-mismatches t       ;; don't show name-mismatches 2 secs
  bbdb-always-add-address nil              ;; add new addresses to existing...
