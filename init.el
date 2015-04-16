@@ -34,6 +34,7 @@
 
 (require 'init-spelling)
 (require 'init-org)
+(require 'init-latex)
 (require 'init-evernote)
 (require 'init-org-pub)
 (require 'init-email)

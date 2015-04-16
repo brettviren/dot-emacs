@@ -1,6 +1,7 @@
 ;; Set up big brother database
 
-(require-package 'bbdb)
+;(require-package 'bbdb)
+(require 'bbdb)
 (bbdb-initialize)
 
 ;; http://blog.ltsampros.eu/2011/01/17/gnus-eudc-ldap-bbdb
